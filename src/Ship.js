@@ -1,8 +1,15 @@
 function Ship(length) {
   let hits = 0;
 
-  const hit = () => hits++;
-  const isSunk = () => hits >= length;
+  const hit = () => {
+    hits++;
+  };
+
+  const isSunk = () => {
+    return hits >= length;
+  };
 
   return { length, hit, isSunk };
 }
+
+module.exports = Ship;

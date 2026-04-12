@@ -1,11 +1,19 @@
-const Gameboard = require("../Gameboard");
+const Ship = require("../src/Ship");
 
-test("creates a 10x10 board", () => {
-  const gameboard = Gameboard();
+test("ship stores its length", () => {
+  const ship = Ship(3);
+  expect(ship.length).toBe(3);
+});
 
-  expect(gameboard.board.length).toBe(10);
+test("ship gets hit", () => {
+  const ship = Ship(3);
+  ship.hit();
+  expect(ship.isSunk()).toBe(false);
+});
 
-  gameboard.board.forEach(row => {
-    expect(row.length).toBe(10);
-  });
+test("ship sinks after enough hits", () => {
+  const ship = Ship(2);
+  ship.hit();
+  ship.hit();
+  expect(ship.isSunk()).toBe(true);
 });
