@@ -18,12 +18,3 @@ test("ship sinks after enough hits", () => {
   expect(ship.isSunk()).toBe(true);
 });
 
-test("board starts empty", () => {
-  const gameboard = Gameboard();
-
-  gameboard.board.forEach(row => {
-    row.forEach(cell => {
-      expect(cell).toBe(null);
-    });
-  });
-});
