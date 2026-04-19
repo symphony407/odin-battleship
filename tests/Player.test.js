@@ -4,7 +4,7 @@ const Ship = require("../src/Ship");
 
 test("player can attack enemy board", () => {
   const player = Player();
-  const enemyBoard = Gameboard(); 
+  const enemyBoard = Gameboard();
 
   const ship = Ship(2);
   enemyBoard.placeShip(ship, 0, 0, "horizontal");
