@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+    <style>
+#player-board, #enemy-board {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  gap: 2px;
+  margin: 20px;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  background-color: lightblue;
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+    <h1>Welcome to Battleship</h1>
+    
+    <div id="player-board">
+    </div>
+    <div id="enemy-board"></div>
+
+</body>
+</html>

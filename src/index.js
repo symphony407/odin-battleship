@@ -1,4 +1,8 @@
+import "./style.css";
+
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("JS is running");
+
   const playerBoardDiv = document.getElementById("player-board");
   const enemyBoardDiv = document.getElementById("enemy-board");
 
@@ -12,48 +16,59 @@ document.addEventListener("DOMContentLoaded", () => {
   player.gameboard.placeShip(Ship(3), 2, 2, "horizontal");
 
   function renderPlayerBoard() {
-    playerBoardDiv.innerHTML = "";
-    const board = player.gameboard.board;
+  playerBoardDiv.innerHTML = "";
 
-    for (let x = 0; x < 10; x++) {
-      for (let y = 0; y < 10; y++) {
-        const cell = document.createElement("div");
-        cell.classList.add("cell");
+  const board = player.gameboard.board;
 
-        const value = board[x][y];
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
 
-        if (value === "hit") cell.style.backgroundColor = "red";
-        if (value === "miss") cell.style.backgroundColor = "gray";
-        if (typeof value === "object") cell.style.backgroundColor = "blue";
+      const value = board[x][y];
 
-        playerBoardDiv.appendChild(cell);
-      }
+      if (value === "hit") cell.style.backgroundColor = "red";
+      else if (value === "miss") cell.style.backgroundColor = "gray";
+      else if (typeof value === "object") cell.style.backgroundColor = "blue";
+
+      playerBoardDiv.appendChild(cell);
     }
   }
+}
 
-  function renderEnemyBoard() {
-    enemyBoardDiv.innerHTML = "";
+ function renderEnemyBoard() {
+  enemyBoardDiv.innerHTML = "";
 
-    for (let x = 0; x < 10; x++) {
-      for (let y = 0; y < 10; y++) {
-        const cell = document.createElement("div");
-        cell.classList.add("cell");
+  const board = cpu.gameboard.board;
 
-        cell.addEventListener("click", () => {
-          const result = player.attack(cpu.gameboard, x, y);
-          if (!result) return;
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
 
-          cpu.randomAttack(player.gameboard);
+      const value = board[x][y];
 
-          renderPlayerBoard();
-          renderEnemyBoard();
-        });
+      // ✅ SHOW RESULT
+      if (value === "hit") cell.style.backgroundColor = "red";
+      if (value === "miss") cell.style.backgroundColor = "gray";
 
-        enemyBoardDiv.appendChild(cell);
-      }
+      cell.addEventListener("click", () => {
+        const result = player.attack(cpu.gameboard, x, y);
+
+        if (!result) return; // 🚫 prevent duplicate clicks
+
+        cpu.randomAttack(player.gameboard);
+
+        renderPlayerBoard();
+        renderEnemyBoard();
+      });
+
+      enemyBoardDiv.appendChild(cell);
     }
   }
+}
 
+  // ✅ CALL FUNCTIONS INSIDE
   renderPlayerBoard();
   renderEnemyBoard();
 });
